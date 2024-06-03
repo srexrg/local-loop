@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const CreateEvent = () => {
-  return (
-    <div>
-      Create Event
-    </div>
-  )
-}
+  return <div>Create</div>;
+};
 
-export default CreateEvent
+export default CreateEvent;
