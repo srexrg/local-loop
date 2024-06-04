@@ -18,13 +18,14 @@ export type CreateEventParams = {
         endDateTime: Date
         categoryId: string
         price: string
-        isFree: boolean
         url: string
     }
+    path: string
 }
 
 export type DeleteEventParams = {
     eventId: string
+    path: string
 }
 
 

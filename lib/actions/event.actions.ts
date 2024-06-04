@@ -9,6 +9,7 @@ import {
     DeleteEventParams,
     GetEventsByUserParams,
 } from '@/types'
+import { revalidatePath } from 'next/cache'
 
 const populateEvent = (query: any) => {
     return query
@@ -16,27 +17,33 @@ const populateEvent = (query: any) => {
 }
 
 
-export async function createEvent({ userId, event }: CreateEventParams) {
+export async function createEvent({ userId, event, path }: CreateEventParams) {
 
     try {
-
         await dbConnect();
 
         const organizer = await User.findById(userId);
-        if (!organizer) throw new Error('Organizer not found')
+        if (!organizer) {
+            console.error(`Organizer with ID ${userId} not found`);
+            throw new Error('Organizer not found');
+        }
 
-        const newEvent = new Event({ ...event, organizer: userId });
-        await newEvent.save();
-        return JSON.parse(JSON.stringify(newEvent))
+        // temp
+        console.log({
+            organizerId: userId,
+        })
 
+        const newEvent = await Event.create({ ...event, organizer: userId });
+        revalidatePath(path);
+
+        return JSON.parse(JSON.stringify(newEvent));
     } catch (error) {
         console.log(error);
         throw new Error(typeof error === 'string' ? error : JSON.stringify(error))
-
     }
 }
 
-export async function deleteEvent({ eventId }: DeleteEventParams) {
+export async function deleteEvent({ eventId,path }: DeleteEventParams) {
 
     try {
 
@@ -45,7 +52,7 @@ export async function deleteEvent({ eventId }: DeleteEventParams) {
         const deletedEvent = await Event.findByIdAndDelete(eventId)
 
         if (deletedEvent) {
-            console.log("Deleted")
+            revalidatePath(path)
         }
 
     } catch (error) {
@@ -58,18 +65,17 @@ export async function deleteEvent({ eventId }: DeleteEventParams) {
 }
 
 export async function getAllEvents() {
-
     try {
-
         await dbConnect();
 
-        const events = await Event.find();
+        const events = await Event.find()
+            .sort({ createdAt: 'desc' })
+            .populate({ path: 'organizer', model: User, select: '_id firstName lastName' })
+
         return JSON.parse(JSON.stringify(events));
-
     } catch (error) {
-        console.log(error);
-        throw new Error(typeof error === 'string' ? error : JSON.stringify(error))
-
+        console.error(error);
+        throw new Error(typeof error === 'string' ? error : JSON.stringify(error));
     }
 }
 
