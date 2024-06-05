@@ -29,6 +29,8 @@ import { Checkbox } from "../ui/checkbox";
 import { useRouter } from "next/navigation";
 import { createEvent } from "@/lib/actions/event.actions";
 import { IEvent } from "@/lib/database/models/event.model";
+import { CalendarHeartIcon } from "lucide-react";
+
 
 type EventFormProps = {
   userId: string;
@@ -76,7 +78,6 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           event: {
             ...values,
             imageUrl: uploadedImageUrl,
-            categoryId: "", 
           },
           userId,
           path: "/profile",
@@ -161,7 +162,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
                     <Image
-                      src="/assets/icons/location-grey.svg"
+                      src="/location.svg"
                       alt="calendar"
                       width={24}
                       height={24}
@@ -178,6 +179,21 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="category"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Dropdown
+                    onChangeHandler={field.onChange}
+                    value={field.value}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         <div className="flex flex-col gap-5 md:flex-row">
@@ -189,7 +205,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
                     <Image
-                      src="/assets/icons/calendar.svg"
+                      src="/calender.svg"
                       alt="calendar"
                       width={24}
                       height={24}
@@ -221,7 +237,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
                     <Image
-                      src="/assets/icons/calendar.svg"
+                      src="/calender.svg"
                       alt="calendar"
                       width={24}
                       height={24}
@@ -255,7 +271,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
                     <Image
-                      src="/assets/icons/dollar.svg"
+                      src="/dollar.svg"
                       alt="dollar"
                       width={24}
                       height={24}
@@ -265,7 +281,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                       type="number"
                       placeholder="Price"
                       {...field}
-                      className="p-regular-16 border-0 bg-grey-50 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="input-field"
                     />
                   </div>
                 </FormControl>
@@ -280,12 +296,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Image
-                      src="/assets/icons/link.svg"
-                      alt="link"
-                      width={24}
-                      height={24}
-                    />
+                    <Image src="/link.svg" alt="link" width={24} height={24} />
 
                     <Input
                       placeholder="URL"

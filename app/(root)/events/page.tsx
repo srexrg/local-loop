@@ -24,7 +24,6 @@ import { getAllEvents } from "@/lib/actions/event.actions";
 export default async function EventsPage() {
     
   const events = await getAllEvents();
-  console.log(events)
 
   return (
     <div className="bg-gray-900 text-white min-h-screen py-8">

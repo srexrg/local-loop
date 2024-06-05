@@ -28,7 +28,6 @@ export async function createEvent({ userId, event, path }: CreateEventParams) {
             throw new Error('Organizer not found');
         }
 
-        // temp
         console.log({
             organizerId: userId,
         })

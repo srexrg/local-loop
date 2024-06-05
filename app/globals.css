@@ -74,6 +74,7 @@
 }
 
 body {
+  background-color:rgb(22, 29, 44);
   font-family: var(--font-poppins)
 }
 
@@ -85,7 +86,7 @@ body {
 /* ========================================== TAILWIND STYLES */
 @layer utilities {
   .wrapper {
-    @apply max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full;
+    @apply  max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full;
   }
 
   .flex-center {
@@ -233,6 +234,10 @@ body {
 /* ========================================== CLERK STYLES */
 .cl-logoImage {
   height: 38px;
+}
+
+.auth {
+  @apply flex-center min-h-screen w-full bg-green-50;
 }
 
 .cl-userButtonBox {

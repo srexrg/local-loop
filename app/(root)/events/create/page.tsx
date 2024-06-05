@@ -12,7 +12,9 @@ const CreateEvent = () => {
    return (
      <>
        <section className="">
-         <h3 className=" font-bold text-center sm:text-left">Create Event</h3>
+         <h3 className=" wrapper h3-bold text-center sm:text-left text-white">
+           Create Event
+         </h3>
        </section>
        <div className="wrapper my-8">
          <EventForm userId={userId || ""} type="Create" />
