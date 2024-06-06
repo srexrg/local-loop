@@ -33,7 +33,7 @@ export default function EventCard({ data, empty, collection }: EventCardProps) {
         </div>
       ) : (
         <div className="flex-center wrapper min-h-[200px] w-full flex-col gap-3 rounded-[14px] py-28 text-center">
-          <h3 className="p-bold-20 md:h5-bold">{empty}</h3>
+          <h3 className="text-white">{empty}</h3>
         </div>
       )}
     </>

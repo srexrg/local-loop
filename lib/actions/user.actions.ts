@@ -13,8 +13,7 @@ export async function CreateUser(user:CreateUserParams){
         await dbConnect();
 
         const newUser = await User.create(user);
-        return JSON.parse(JSON.stringify(newUser))
-        
+        return JSON.parse(JSON.stringify(newUser))        
     } catch (error) {
         console.log(error);
         throw new Error(typeof error === 'string' ? error : JSON.stringify(error))
