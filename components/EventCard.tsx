@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { IEvent } from "@/lib/database/models/event.model";
-import Card from "./shared/Card";
+import CardDetails from "./shared/Card";
 
 type EventCardProps = {
   data: IEvent[];
@@ -9,7 +9,7 @@ type EventCardProps = {
   collection?: "Events Organized" | "My Tickets" | "All Events";
 };
 
-export default function EventCard({ data,empty,collection }: EventCardProps) {
+export default function EventCard({ data, empty, collection }: EventCardProps) {
   return (
     <>
       {data.length > 0 ? (
@@ -20,8 +20,8 @@ export default function EventCard({ data,empty,collection }: EventCardProps) {
               const hidePrice = collection === "My Tickets";
 
               return (
-                <li key={event._id} className="flex justify-center">
-                  <Card
+                <li key={event._id} className="">
+                  <CardDetails
                     event={event}
                     hasOrderLink={hasOrderLink}
                     hidePrice={hidePrice}

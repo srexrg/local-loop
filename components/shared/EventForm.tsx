@@ -25,11 +25,10 @@ import DatePicker from "react-datepicker";
 import { useUploadThing } from "@/lib/uploadthing";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { Checkbox } from "../ui/checkbox";
 import { useRouter } from "next/navigation";
 import { createEvent } from "@/lib/actions/event.actions";
 import { IEvent } from "@/lib/database/models/event.model";
-import { CalendarHeartIcon } from "lucide-react";
+
 
 
 type EventFormProps = {
@@ -75,10 +74,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
     if (type === "Create") {
       try {
         const newEvent = await createEvent({
-          event: {
-            ...values,
-            imageUrl: uploadedImageUrl,
-          },
+          event: { ...values, imageUrl: uploadedImageUrl },
           userId,
           path: "/profile",
         });

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import { withUt } from 'uploadthing/tw';
+import { custom } from 'zod';
 
 module.exports = withUt({
   darkMode: ['class'],
@@ -19,6 +20,9 @@ module.exports = withUt({
     },
     extend: {
       colors: {
+        custom:{
+          'bg':'rgb(22, 29, 44);'
+        },
         primary: {
           500: '#1a1444',
           50: ' #F6F8FD',

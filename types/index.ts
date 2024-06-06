@@ -32,3 +32,7 @@ export type DeleteEventParams = {
 export type GetEventsByUserParams = {
     userId: string
 }
+export type GetRelatedEvents = {
+    eventId: string
+    category: string
+}
