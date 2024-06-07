@@ -15,7 +15,7 @@ import { isValidObjectId } from 'mongoose'
 
 const populateEvent = (query: any) => {
     return query
-        .populate({ path: 'organizer', model: User, select: '_id firstName lastName' })
+        .populate({ path: 'organizer', model: User, select: '_id firstName lastName username' })
 }
 
 
@@ -73,7 +73,7 @@ export async function getAllEvents() {
 
         const events = await Event.find()
             .sort({ createdAt: 'desc' })
-            .populate({ path: 'organizer', model: User, select: '_id firstName lastName' })
+            .populate({ path: 'organizer', model: User, select: '_id firstName lastName username' })
 
         return JSON.parse(JSON.stringify(events));
     } catch (error) {

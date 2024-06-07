@@ -12,7 +12,7 @@ export interface IEvent extends Document {
     price: string;
     url?: string;
     category: string;
-    organizer: { _id: string, firstName: string, lastName: string }
+    organizer: { _id: string, firstName: string, lastName: string,username:string }
 }
 
 const EventSchema = new Schema({

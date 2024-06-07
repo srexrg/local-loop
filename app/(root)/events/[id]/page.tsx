@@ -58,7 +58,7 @@ export default async function EventDetails({ params: { id } }: EventDetails) {
               <div className="flex items-center gap-2 text-sm text-gray-400">
                 <User2Icon className="w-4 h-4" />
                 <div className="font-semibold">
-                  {event.organizer.firstName} {event.organizer.lastName}
+                  {event.organizer.username}
                 </div>
                 <Link  href={event.url} className="">
                   {event.url}
