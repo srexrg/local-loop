@@ -5,6 +5,7 @@ const UserSchema = new Schema({
     email: { type: String, required: true, unique: true },
     username: { type: String, required: true, unique: true },
     firstName: { type: String },
+    registered: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
     lastName: { type: String},
     photo: { type: String, required: true },
 })

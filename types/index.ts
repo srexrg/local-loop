@@ -32,7 +32,14 @@ export type DeleteEventParams = {
 export type GetEventsByUserParams = {
     userId: string
 }
+export type GetRegisteredParams = {
+    userId: string
+}
 export type GetRelatedEvents = {
     eventId: string
     category: string
+}
+export type RegisterEvents = {
+    userId: string
+    eventId: string
 }

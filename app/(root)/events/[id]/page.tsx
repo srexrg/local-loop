@@ -1,21 +1,37 @@
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { User2Icon } from "lucide-react";
-import { getEventById, getRelatedEvents } from "@/lib/actions/event.actions";
+import {
+  getEventById,
+  getRegisteredByUser,
+  getRelatedEvents,
+  registerEvent,
+} from "@/lib/actions/event.actions";
 import { formatDateTime } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { auth } from "@clerk/nextjs";
+import RegisterButton from "@/components/shared/RegisterButton";
+import { getUserById } from "@/lib/actions/user.actions";
+import { useState } from "react";
 
 type EventDetails = {
   params: { id: string };
 };
 
 export default async function EventDetails({ params: { id } }: EventDetails) {
+  const { sessionClaims } = auth();
+  const userId = sessionClaims?.userId as string;
   const event = await getEventById(id);
+
+
+  const registered = await getRegisteredByUser({userId})
+
   const related = await getRelatedEvents({
     eventId: event._id,
     category: event.category,
   });
+
 
   return (
     <div className="bg-gray-900 text-gray-50 min-h-screen">
@@ -57,14 +73,12 @@ export default async function EventDetails({ params: { id } }: EventDetails) {
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-400">
                 <User2Icon className="w-4 h-4" />
-                <div className="font-semibold">
-                  {event.organizer.username}
-                </div>
-                <Link  href={event.url} className="">
+                <div className="font-semibold">{event.organizer.username}</div>
+                <Link href={event.url} target="_blank"  className="">
                   {event.url}
                 </Link>
               </div>
-              <Button className="mt-4">Register Now</Button>
+              <RegisterButton userId={userId} eventId={id}/>
             </div>
           </div>
         </div>

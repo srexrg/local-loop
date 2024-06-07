@@ -8,7 +8,9 @@ import {
     CreateEventParams,
     DeleteEventParams,
     GetEventsByUserParams,
+    GetRegisteredParams,
     GetRelatedEvents,
+    RegisterEvents,
 } from '@/types'
 import { revalidatePath } from 'next/cache'
 import { isValidObjectId } from 'mongoose'
@@ -97,6 +99,46 @@ export async function getEventByUser({ userId}: GetEventsByUserParams) {
     } catch (error) {
         console.log(error);
         throw new Error(typeof error === 'string' ? error : JSON.stringify(error))
+    }
+}
+
+export async function registerEvent({userId,eventId}:RegisterEvents){
+
+    try {
+
+        await dbConnect();
+        const user = await User.findById(userId);
+        const event = await Event.findById(eventId);
+        if (!user) throw new Error("User not found");
+        if (!event) throw new Error("Event not found");
+
+        user.registered.push(event._id);
+
+        await user.save()
+        
+    } catch (error) {
+        console.log(error);
+        throw new Error(typeof error === 'string' ? error : JSON.stringify(error))
+        
+    }
+}
+
+export async function getRegisteredByUser({ userId }: GetRegisteredParams) {
+    try {
+        await dbConnect();
+
+        const user = await User.findById(userId).populate({
+            path: 'registered',
+            select: 'title description location startDateTime endDateTime price imageUrl category',
+            populate: { path: 'organizer', select: '_id firstName lastName username' }
+        });
+
+        if (!user) throw new Error('User not found');
+ 
+        return { data: JSON.parse(JSON.stringify(user.registered)) }
+    } catch (error) {
+        console.error(error);
+    
     }
 }
 
