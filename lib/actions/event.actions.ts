@@ -7,6 +7,7 @@ import dbConnect from '../database/dbConnect'
 import {
     CreateEventParams,
     DeleteEventParams,
+    GetAllEventParams,
     GetEventsByUserParams,
     GetRegisteredParams,
     GetRelatedEvents,
@@ -69,13 +70,23 @@ export async function deleteEvent({ eventId, path }: DeleteEventParams) {
 
 }
 
-export async function getAllEvents() {
+export async function getAllEvents({ query,category }: GetAllEventParams) {
     try {
         await dbConnect();
 
-        const events = await Event.find()
+        const conditions: any = {};
+
+        if (query) {
+            conditions.title = { $regex: query, $options: 'i' };
+        }
+
+        if (category && category !== 'All') {
+            conditions.category = category;
+        }
+
+        const events = await Event.find(conditions)
             .sort({ createdAt: 'desc' })
-            .populate({ path: 'organizer', model: User, select: '_id firstName lastName username' })
+            .populate({ path: 'organizer', model: User, select: '_id firstName lastName username' });
 
         return JSON.parse(JSON.stringify(events));
     } catch (error) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -28,8 +28,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/navigation";
 import { createEvent } from "@/lib/actions/event.actions";
 import { IEvent } from "@/lib/database/models/event.model";
-
-
+import { toast } from "../ui/use-toast";
+import { error } from "console";
 
 type EventFormProps = {
   userId: string;
@@ -39,7 +39,6 @@ type EventFormProps = {
 };
 
 const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
-
   const [files, setFiles] = useState<File[]>([]);
   const initialValues =
     event && type === "Update"
@@ -57,6 +56,10 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
     resolver: zodResolver(eventFormSchema),
     defaultValues: initialValues,
   });
+
+  const onError = (errors: FieldErrors<typeof eventFormSchema>) => {
+    console.log(errors);
+  };
 
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
     let uploadedImageUrl = values.imageUrl;
@@ -81,10 +84,23 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
 
         if (newEvent) {
           form.reset();
+          toast({
+            title: "Created!",
+            description: "You succesfully created the event",
+            duration: 5000,
+            className: "success-toast",
+          });
+
           router.push(`/events/${newEvent._id}`);
         }
       } catch (error) {
         console.log(error);
+        toast({
+          title: "Error!",
+          description: "Error while creating the event",
+          duration: 5000,
+          className: "error-toast",
+        });
       }
     }
   }
@@ -92,7 +108,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onSubmit, onError)}
         className="flex flex-col gap-5"
       >
         <div className="flex flex-col gap-5 md:flex-row">

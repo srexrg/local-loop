@@ -18,6 +18,7 @@ import {
 
 import { deleteEvent } from "@/lib/actions/event.actions";
 import { Trash2 } from "lucide-react";
+import { toast } from "../ui/use-toast";
 
 export const DeleteConfirmation = ({ eventId }: { eventId: string }) => {
   const pathname = usePathname();
@@ -44,7 +45,15 @@ export const DeleteConfirmation = ({ eventId }: { eventId: string }) => {
             onClick={() =>
               startTransition(async () => {
                 await deleteEvent({ eventId, path: pathname });
+                 toast({
+                   title: "Deleted!",
+                   description: "You succesfully deleted the event",
+                   duration: 5000,
+                   className: "success-toast",
+                 });
               })
+              
+
             }
           >
             {isPending ? "Deleting..." : "Delete"}

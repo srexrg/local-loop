@@ -27,6 +27,32 @@ export type DeleteEventParams = {
     eventId: string
     path: string
 }
+export type GetAllEventParams = {
+    query: string
+    category?:string
+}
+
+export type FormUrlQueryParams = {
+    searchParams: string;
+    key: string;
+    value: string | number | null;
+};
+
+export type UrlQueryParams = {
+    params: string;
+    key: string;
+    value: string | null;
+};
+
+export type RemoveUrlQueryParams = {
+    searchParams: string;
+    keysToRemove: string[];
+};
+
+export type SearchParamProps = {
+    params: { id: string }
+    searchParams: { [key: string]: string | string[] | undefined }
+}
 
 
 export type GetEventsByUserParams = {

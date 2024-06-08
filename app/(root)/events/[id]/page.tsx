@@ -24,6 +24,9 @@ export default async function EventDetails({ params: { id } }: EventDetails) {
   const userId = sessionClaims?.userId as string;
   const event = await getEventById(id);
 
+  const isEventCreator =
+    event.organizer && userId === event.organizer._id.toString();
+
 
   const registered = await getRegisteredByUser({userId})
 
@@ -74,11 +77,19 @@ export default async function EventDetails({ params: { id } }: EventDetails) {
               <div className="flex items-center gap-2 text-sm text-gray-400">
                 <User2Icon className="w-4 h-4" />
                 <div className="font-semibold">{event.organizer.username}</div>
-                <Link href={event.url} target="_blank"  className="">
+                <Link href={event.url} target="_blank" className="">
                   {event.url}
                 </Link>
               </div>
-              <RegisterButton userId={userId} eventId={id}/>
+              {!isEventCreator && (
+                <RegisterButton userId={userId} eventId={id} />
+              )}
+
+              {isEventCreator &&(
+                <Link href="/profile">
+                <Button className="mt-5">Go to Profile</Button>
+                </Link>
+              )}
             </div>
           </div>
         </div>
