@@ -11,10 +11,10 @@ const ProfilePage = async () => {
    const userId = sessionClaims?.userId as string;
 
   const organizedEvents = await getEventByUser({ userId });
-  console.log("Organized are", organizedEvents);
+  // console.log("Organized are", organizedEvents);
 
   const registeredEvents = await getRegisteredByUser({userId});
-  console.log("Registered are",registeredEvents)
+  // console.log("Registered are",registeredEvents)
 
   return (
     <>

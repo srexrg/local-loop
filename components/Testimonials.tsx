@@ -19,7 +19,7 @@ function Testimonials() {
               <div className="mx-auto flex w-full items-center justify-center p-4 sm:p-8">
                 <div className="flex flex-col items-center justify-center space-y-2">
                   <Avatar>
-                    <AvatarFallback>JD</AvatarFallback>
+                    <AvatarFallback className='bg-black'>JD</AvatarFallback>
                   </Avatar>
                   <p className="text-sm font-medium">John Doe</p>
                   <p className="text-sm text-gray-400">Software Engineer</p>
@@ -32,26 +32,25 @@ function Testimonials() {
               <div className="mx-auto flex w-full items-center justify-center p-4 sm:p-8">
                 <div className="flex flex-col items-center justify-center space-y-2">
                   <Avatar>
-                    <AvatarFallback>SM</AvatarFallback>
+                    <AvatarFallback className='bg-black'>SM</AvatarFallback>
                   </Avatar>
                   <p className="text-sm font-medium">Sarah Miller</p>
                   <p className="text-sm text-gray-400">Graphic Designer</p>
                   <p className="text-sm text-gray-400">
-                    I learned so much from the workshops and presentations at
-                    Local Loop. Highly recommended!
+                    The events which are being conducted here really helped me to network more and helped in increasing my social life
                   </p>
                 </div>
               </div>
               <div className="mx-auto flex w-full items-center justify-center p-4 sm:p-8">
                 <div className="flex flex-col items-center justify-center space-y-2">
                   <Avatar>
-                    <AvatarFallback>MJ</AvatarFallback>
+                    <AvatarFallback className='bg-black'>MJ</AvatarFallback>
                   </Avatar>
                   <p className="text-sm font-medium">Michael Johnson</p>
                   <p className="text-sm text-gray-400">Entrepreneur</p>
                   <p className="text-sm text-gray-400">
-                    &ldquo;The Local Loop community has been invaluable for
-                    networking and finding new business opportunities.&rdquo;
+                    The Local Loop community has been invaluable for
+                    networking and finding new business opportunities.;
                   </p>
                 </div>
               </div>

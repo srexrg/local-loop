@@ -2,7 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import Footer from "@/components/Footer";
 import Testimonials from "@/components/Testimonials";
-import { SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+import Features from "@/components/Features";
+import { Separator } from "@/components/ui/separator";
+import AboutUs from "@/components/AboutUs";
 
 export default function Component() {
   return (
@@ -23,7 +26,7 @@ export default function Component() {
                   <SignedOut>
                     <Link
                       href="/sign-up"
-                      className="inline-flex h-9 items-center justify-center rounded-md bg-gray-50 px-4 py-2 text-sm font-medium text-[#6366F1] shadow transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-800 dark:text-gray-50 dark:hover:bg-gray-700 dark:focus-visible:ring-gray-300"
+                      className="inline-flex h-9 items-center justify-center rounded-md bg-gray-50 px-4 py-2 text-sm font-medium text-gray-800 shadow transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-800 dark:text-gray-50 dark:hover:bg-gray-700 dark:focus-visible:ring-gray-300"
                       prefetch={false}
                     >
                       Register Now
@@ -36,11 +39,20 @@ export default function Component() {
                       Explore Events
                     </Link>
                   </SignedOut>
+                  <SignedIn>
+                    <Link
+                      href="/events"
+                      className="inline-flex h-9 items-center justify-center rounded-md bg-gray-50 px-4 py-2 text-sm font-medium text text-gray-800 shadow transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-800 dark:text-gray-50 dark:hover:bg-gray-700 dark:focus-visible:ring-gray-300"
+                      prefetch={false}
+                    >
+                      Go to your Events
+                    </Link>
+                  </SignedIn>
                 </div>
               </div>
               <div className="flex flex-col items-start space-y-4">
                 <Image
-                  src="/Designer (4).jpeg"
+                  src="/loop.jpeg"
                   width="500"
                   height="500"
                   alt="Hero"
@@ -50,6 +62,8 @@ export default function Component() {
             </div>
           </div>
         </section>
+        <Features />
+        <AboutUs />
         <Testimonials />
       </main>
       <Footer />

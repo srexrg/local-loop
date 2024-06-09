@@ -17,15 +17,18 @@ const initialCategories = [
 type DropdownProps = {
   value?: string;
   onChangeHandler?: () => void;
+  className?:string
 };
 
-const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
+const Dropdown = ({ value, onChangeHandler,className }: DropdownProps) => {
   const [categories, setCategories] = useState(initialCategories);
 
 
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
-      <SelectTrigger className="select-field">
+      <SelectTrigger
+        className={`w-full h-[54px] placeholder:text-grey-500 rounded-full p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent focus:ring-transparent !important ${className}`}
+      >
         <SelectValue placeholder="Category" />
       </SelectTrigger>
       <SelectContent>

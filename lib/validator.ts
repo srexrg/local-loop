@@ -8,6 +8,5 @@ export const eventFormSchema = z.object({
     category: z.string().min(3,"Category  is required"),
     startDateTime: z.date(),
     endDateTime: z.date(),
-    price: z.string(),
     url: z.string().url()
 })

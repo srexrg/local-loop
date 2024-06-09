@@ -69,6 +69,5 @@ export const eventDefaultValues = {
     startDateTime: new Date(),
     endDateTime: new Date(),
     category: '',
-    price: '',
     url: '',
 }

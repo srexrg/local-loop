@@ -34,9 +34,9 @@ export async function createEvent({ userId, event, path }: CreateEventParams) {
             throw new Error('Organizer not found');
         }
 
-        console.log({
-            organizer: userId,
-        })
+        // console.log({
+        //     organizer: userId,
+        // })
 
         const newEvent = await Event.create({ ...event,organizer: userId });
         await newEvent.save();
@@ -140,7 +140,7 @@ export async function getRegisteredByUser({ userId }: GetRegisteredParams) {
 
         const user = await User.findById(userId).populate({
             path: 'registered',
-            select: 'title description location startDateTime endDateTime price imageUrl category',
+            select: 'title description location startDateTime endDateTime imageUrl category',
             populate: { path: 'organizer', select: '_id firstName lastName username' }
         });
 

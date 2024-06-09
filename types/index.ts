@@ -17,7 +17,6 @@ export type CreateEventParams = {
         startDateTime: Date
         endDateTime: Date
         category: string
-        price: string
         url: string
     }
     path: string

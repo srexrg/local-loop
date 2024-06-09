@@ -36,9 +36,6 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
       <div className="flex min-h-[250px] flex-col gap-4 p-6 md:gap-5 bg-slate-800 text-white">
         {!hidePrice && (
           <div className="flex gap-3">
-            <span className="p-semibold-14 w-min rounded-full bg-green-500 px-4 py-1 text-green-100">
-              {event.price}
-            </span>
             <p className="p-semibold-14 w-min rounded-full bg-grey-500/10 px-4 py-1 text-white line-clamp-1">
               {event.category}
             </p>
