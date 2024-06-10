@@ -1,10 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { registerEvent } from "@/lib/actions/event.actions";
+import {
+  registerEvent,
+  getRegisteredByUser,
+} from "@/lib/actions/event.actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import Link from "next/link";
 
 type RegisterButtonProps = {
   userId: string;
@@ -18,7 +22,26 @@ export default function RegisterButton({
   const { toast } = useToast();
 
   const [isRegistering, setIsRegistering] = useState(false);
+  const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const checkRegistration = async () => {
+      try {
+        const registered = await getRegisteredByUser({ userId });
+        if (registered && registered.data) {
+          const eventIds = registered.data.map(
+            (event: { _id: any }) => event._id
+          );
+          setIsAlreadyRegistered(eventIds.includes(eventId));
+        }
+      } catch (error) {
+        console.error("Error checking registration:", error);
+      }
+    };
+
+    checkRegistration();
+  }, [userId, eventId]);
 
   const handleRegister = async () => {
     setIsRegistering(true);
@@ -31,25 +54,31 @@ export default function RegisterButton({
         duration: 5000,
         className: "success-toast",
       });
-
-      // console.log(`Registerd with ${userId} and ${eventId} `);
     } catch (error) {
       console.error("Error registering for event:", error);
-
-       toast({
-         title: "Error!",
-         description: "Error while registering the event",
-         duration: 5000,
-         className: "error-toast",
-       });
+      toast({
+        title: "Error!",
+        description: "Error while registering the event",
+        duration: 5000,
+        className: "error-toast",
+      });
     } finally {
       setIsRegistering(false);
     }
   };
 
   return (
-    <Button onClick={handleRegister} disabled={isRegistering}>
-      {isRegistering ? "Booking..." : "Book Now"}
-    </Button>
+    <>
+      {!isAlreadyRegistered && (
+        <Button onClick={handleRegister} disabled={isRegistering}>
+          {isRegistering ? "Booking..." : "Book Now"}
+        </Button>
+      )}
+      {isAlreadyRegistered && (
+        <Link href="/profile">
+          <Button className="mt-5">Go to Event</Button>
+        </Link>
+      )}
+    </>
   );
 }

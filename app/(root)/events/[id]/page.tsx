@@ -20,6 +20,23 @@ type EventDetails = {
   params: { id: string };
 };
 
+type RegisteredEvent = {
+  _id: string;
+  category: string;
+  description: string;
+  endDateTime: string;
+  imageUrl: string;
+  location: string;
+  organizer: {
+    _id: string;
+    username: string;
+    firstName: string;
+    lastName: string;
+  };
+  startDateTime: string;
+  title: string;
+};
+
 export default async function EventDetails({ params: { id } }: EventDetails) {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
@@ -28,15 +45,22 @@ export default async function EventDetails({ params: { id } }: EventDetails) {
   const isEventCreator =
     event.organizer && userId === event.organizer._id.toString();
 
+  // let isRegistered = false;
 
-  const registered = await getRegisteredByUser({userId})
-  
+  // const registered = (await getRegisteredByUser({
+  //   userId,
+  // })) as unknown as { data: RegisteredEvent[] };
+  // if (registered && registered.data) {
+  //   const eventIds = registered.data.map((event) => event._id);
+  //   isRegistered = eventIds.includes(id);
+  // }
+
+  // const registered = await getRegisteredByUser({userId})
 
   const related = await getRelatedEvents({
     eventId: event._id,
     category: event.category,
   });
-
 
   return (
     <div className="bg-gray-900 text-gray-50 min-h-screen">
