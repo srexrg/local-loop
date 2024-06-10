@@ -42,7 +42,7 @@ const CategoryFilter = () => {
 
   return (
     <Select onValueChange={(value: string) => onSelectCategory(value)}>
-      <SelectTrigger className="w-full bg-gray-800 h-[54px] placeholder:text-grey-500 rounded-full p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent focus:ring-transparent !important;">
+      <SelectTrigger className="w-full bg-gray-800 h-[54px] md:h-[44px] lg:h-[54px] placeholder:text-gray-500 rounded-full p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent focus:ring-transparent">
         <SelectValue placeholder="Category" />
       </SelectTrigger>
       <SelectContent>

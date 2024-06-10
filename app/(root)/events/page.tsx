@@ -36,9 +36,9 @@ export default async function EventsPage({ searchParams }: SearchParamProps) {
   return (
     <div className="bg-gray-900 text-white min-h-screen py-8">
       <nav className="bg-gray-900">
-        <div className="container mx-auto flex justify-between items-center">
+        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center p-4 md:p-0">
           <h1 className="text-xl font-bold">Local-Loop</h1>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col md:flex-row items-center gap-4 mt-4 md:mt-0">
             <Link
               href="/profile"
               className="flex items-center gap-2 text-white hover:text-gray-300"
@@ -57,7 +57,7 @@ export default async function EventsPage({ searchParams }: SearchParamProps) {
           </div>
         </div>
       </nav>
-      <div className="container mt-10 px-4 md:px-6">
+      <div className="container mx-auto mt-10 px-4 md:px-6">
         <div className="mb-8">
           <h1 className="text-3xl font-bold">Upcoming Events</h1>
           <p className="text-gray-400 mt-2">
@@ -66,8 +66,8 @@ export default async function EventsPage({ searchParams }: SearchParamProps) {
         </div>
         <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-2">
           <Search placeholder="Search for an event" />
-          <div className="flex flex-end w-1/6">
-          <CategoryFilter />
+          <div className="flex w-full md:w-1/6">
+            <CategoryFilter />
           </div>
         </div>
         <div className="mt-10 my-9">
