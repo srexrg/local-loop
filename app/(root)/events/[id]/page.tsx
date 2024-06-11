@@ -5,15 +5,12 @@ import {
   getEventById,
   getRegisteredByUser,
   getRelatedEvents,
-  registerEvent,
 } from "@/lib/actions/event.actions";
 import { formatDateTime } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { SignedIn, SignedOut, auth } from "@clerk/nextjs";
-import RegisterButton from "@/components/shared/RegisterButton";
-import { getUserById } from "@/lib/actions/user.actions";
-import { useState } from "react";
+import RegisterAndAddToCalendar from "@/components/shared/RegisterButton";
 import EventCard from "@/components/EventCard";
 
 type EventDetails = {
@@ -45,22 +42,18 @@ export default async function EventDetails({ params: { id } }: EventDetails) {
   const isEventCreator =
     event.organizer && userId === event.organizer._id.toString();
 
-  // let isRegistered = false;
-
-  // const registered = (await getRegisteredByUser({
-  //   userId,
-  // })) as unknown as { data: RegisteredEvent[] };
-  // if (registered && registered.data) {
-  //   const eventIds = registered.data.map((event) => event._id);
-  //   isRegistered = eventIds.includes(id);
-  // }
-
-  // const registered = await getRegisteredByUser({userId})
-
   const related = await getRelatedEvents({
     eventId: event._id,
     category: event.category,
   });
+
+  const calendarEvent = {
+    title: event.title,
+    description: event.description,
+    start: event.startDateTime,
+    end: event.endDateTime,
+    location: event.location,
+  };
 
   return (
     <div className="bg-gray-900 text-gray-50 min-h-screen">
@@ -104,14 +97,18 @@ export default async function EventDetails({ params: { id } }: EventDetails) {
               </div>
 
               <SignedOut>
-                <Button asChild className="button rounded-full" size="lg">
+                <Button className="button rounded-full" size="lg">
                   <Link href="/sign-in">Get Tickets</Link>
                 </Button>
               </SignedOut>
 
               <SignedIn>
                 {!isEventCreator && (
-                  <RegisterButton userId={userId} eventId={id} />
+                  <RegisterAndAddToCalendar
+                    userId={userId}
+                    eventId={id}
+                    calendarEvent={calendarEvent}
+                  />
                 )}
 
                 {isEventCreator && (

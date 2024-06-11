@@ -68,6 +68,12 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       const uploadedImages = await startUpload(files);
 
       if (!uploadedImages) {
+        toast({
+          title: "Error!",
+          description: "Failed to upload image.",
+          duration: 5000,
+          className: "error-toast",
+        });
         return;
       }
 

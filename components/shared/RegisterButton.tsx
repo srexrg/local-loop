@@ -8,22 +8,31 @@ import {
 } from "@/lib/actions/event.actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import AddToCalendarButton from "@/components/shared/AddtoCalender";
 import Link from "next/link";
 
-type RegisterButtonProps = {
+type RegisterAndAddToCalendarProps = {
   userId: string;
   eventId: string;
+  calendarEvent: {
+    title: string;
+    description: string;
+    start: string;
+    end: string;
+    location: string;
+  };
 };
 
-export default function RegisterButton({
+export default function RegisterAndAddToCalendar({
   userId,
   eventId,
-}: RegisterButtonProps) {
+  calendarEvent,
+}: RegisterAndAddToCalendarProps) {
   const { toast } = useToast();
+  const router = useRouter();
 
   const [isRegistering, setIsRegistering] = useState(false);
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     const checkRegistration = async () => {
@@ -47,18 +56,18 @@ export default function RegisterButton({
     setIsRegistering(true);
     try {
       const register = await registerEvent({ userId, eventId });
-      router.push("/profile");
       toast({
         title: "Registered!",
-        description: "You succesfully registered for the event",
+        description: "You successfully registered for the event",
         duration: 5000,
         className: "success-toast",
       });
+      setIsAlreadyRegistered(true);
     } catch (error) {
       console.error("Error registering for event:", error);
       toast({
         title: "Error!",
-        description: "Error while registering the event",
+        description: "Error while registering for the event",
         duration: 5000,
         className: "error-toast",
       });
@@ -75,9 +84,12 @@ export default function RegisterButton({
         </Button>
       )}
       {isAlreadyRegistered && (
-        <Link href="/profile">
-          <Button className="mt-5">Go to Event</Button>
-        </Link>
+        <>
+          <Link href="/profile">
+            <Button className="mt-5">Go to Event</Button>
+          </Link>
+          <AddToCalendarButton event={calendarEvent} />
+        </>
       )}
     </>
   );
