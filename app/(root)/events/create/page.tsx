@@ -1,10 +1,10 @@
 import EventForm from "@/components/shared/EventForm";
-import { auth } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import React from "react";
 
-const CreateEvent = () => {
-  const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId as string;
+const CreateEvent = async () => {
+   const user = await currentUser();
+   const userId = user?.publicMetadata.userId as string;
 
   return (
     <>
