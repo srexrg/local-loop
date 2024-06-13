@@ -6,14 +6,6 @@ import {
   PlusCircleIcon,
   LogOutIcon,
 } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import EventCard from "@/components/EventCard";
 import Link from "next/link";

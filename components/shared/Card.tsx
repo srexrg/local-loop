@@ -1,6 +1,6 @@
 import { IEvent } from "@/lib/database/models/event.model";
 import { formatDateTime } from "@/lib/utils";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -12,9 +12,10 @@ type CardProps = {
   hidePrice?: boolean;
 };
 
-const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
-  const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId as string;
+const Card = async ({ event, hasOrderLink, hidePrice }: CardProps) => {
+   const user = await currentUser();
+  const userId = user?.publicMetadata.userId as string;
+  console.log("Card page",userId)
 
   const isEventCreator =
     event.organizer && userId === event.organizer._id.toString();
@@ -54,7 +55,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
 
         <div className="flex justify-between w-full">
           <p className="p-bold-24 md:p-bold text-white">
-            Organizer: {event.organizer.firstName||event.organizer.username}
+            Organizer: {event.organizer.firstName || event.organizer.username}
           </p>
 
           {/* {hasOrderLink && (

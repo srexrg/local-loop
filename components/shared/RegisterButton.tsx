@@ -37,6 +37,7 @@ export default function RegisterAndAddToCalendar({
   useEffect(() => {
     const checkRegistration = async () => {
       try {
+        console.log("Useffect userId",userId)
         const registered = await getRegisteredByUser({ userId });
         if (registered && registered.data) {
           const eventIds = registered.data.map(

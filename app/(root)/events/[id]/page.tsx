@@ -1,17 +1,14 @@
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
+import { Separator } from "../.././../../components/ui/separator";
+import { Button } from "../.././../../components/ui/button";
 import { User2Icon } from "lucide-react";
-import {
-  getEventById,
-  getRegisteredByUser,
-  getRelatedEvents,
-} from "@/lib/actions/event.actions";
-import { formatDateTime } from "@/lib/utils";
+import { getEventById, getRelatedEvents } from "../../../../lib/actions/event.actions";
+import { formatDateTime } from "../../../../lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { SignedIn, SignedOut, auth } from "@clerk/nextjs";
+import { SignedIn, SignedOut, useSession, useUser } from "@clerk/nextjs";
 import RegisterAndAddToCalendar from "@/components/shared/RegisterButton";
 import EventCard from "@/components/EventCard";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 type EventDetails = {
   params: { id: string };
@@ -35,8 +32,12 @@ type RegisteredEvent = {
 };
 
 export default async function EventDetails({ params: { id } }: EventDetails) {
-  const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId as string;
+
+  const user =await currentUser();
+  console.log("Metadata",user?.publicMetadata.userId)
+  const userId = user?.publicMetadata.userId as string;
+  console.log("Event details ", userId);
+
   const event = await getEventById(id);
 
   const isEventCreator =

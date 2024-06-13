@@ -43,7 +43,7 @@ export async function createEvent({ userId, event, path }: CreateEventParams) {
         revalidatePath(path);
 
         return JSON.parse(JSON.stringify(newEvent));
-    } catch (error) {
+    } catch (error: any) {
         console.log(error);
         throw new Error(typeof error === 'string' ? error : JSON.stringify(error))
     }
@@ -113,7 +113,7 @@ export async function getEventByUser({ userId}: GetEventsByUserParams) {
     }
 }
 
-export async function registerEvent({userId,eventId}:RegisterEvents){
+export async function registerEvent({ userId, eventId }: RegisterEvents) {
 
     try {
 
@@ -126,18 +126,18 @@ export async function registerEvent({userId,eventId}:RegisterEvents){
         user.registered.push(event._id);
 
         await user.save()
-        
+
     } catch (error) {
         console.log(error);
         throw new Error(typeof error === 'string' ? error : JSON.stringify(error))
-        
+
     }
 }
 
 export async function getRegisteredByUser({ userId }: GetRegisteredParams) {
     try {
         await dbConnect();
-
+        console.log("Usedid is",userId)
         const user = await User.findById(userId).populate({
             path: 'registered',
             select: 'title description location startDateTime endDateTime imageUrl category',
@@ -145,11 +145,11 @@ export async function getRegisteredByUser({ userId }: GetRegisteredParams) {
         });
 
         if (!user) throw new Error('User not found');
- 
+
         return { data: JSON.parse(JSON.stringify(user.registered)) }
     } catch (error) {
         console.error(error);
-    
+
     }
 }
 
@@ -158,7 +158,7 @@ export async function getEventById(eventId: string) {
         await dbConnect()
 
         const event = await populateEvent(Event.findById(eventId))       
-        console.log("Event",event)       
+        // console.log("Event",event)       
 
         if (!event) throw new Error('Event not found')
 
