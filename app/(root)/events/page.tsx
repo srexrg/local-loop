@@ -9,7 +9,6 @@ import {
 import { Button } from "@/components/ui/button";
 import EventCard from "@/components/EventCard";
 import Link from "next/link";
-import { events } from "@/utils/constants";
 import { UserButton } from "@clerk/nextjs";
 import { getAllEvents } from "@/lib/actions/event.actions";
 import Search from "@/components/shared/Search";

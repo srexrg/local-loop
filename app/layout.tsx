@@ -23,18 +23,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      appearance={{
-        variables: { colorPrimary: "#16a34a" },
-      }}
-    >
-      <html lang="en">
+    <html lang="en">
+      <ClerkProvider
+        appearance={{
+          variables: { colorPrimary: "#16a34a" },
+        }}
+      >
         <body className={cn("font-IBMPlex antialiased", IBMPlex.variable)}>
           {children}
           <Analytics />
           <Toaster />
         </body>
-      </html>
-    </ClerkProvider>
+      </ClerkProvider>
+    </html>
   );
 }

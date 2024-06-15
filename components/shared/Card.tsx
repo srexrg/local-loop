@@ -13,7 +13,7 @@ type CardProps = {
 };
 
 const Card = async ({ event, hasOrderLink, hidePrice }: CardProps) => {
-   const user = await currentUser();
+  const user = await currentUser();
   const userId = user?.publicMetadata.userId as string;
   console.log("Card page",userId)
 
@@ -57,18 +57,6 @@ const Card = async ({ event, hasOrderLink, hidePrice }: CardProps) => {
           <p className="p-bold-24 md:p-bold text-white">
             Organizer: {event.organizer.firstName || event.organizer.username}
           </p>
-
-          {/* {hasOrderLink && (
-              <Link href={`/orders?eventId=${event._id}`} className="flex gap-2">
-                <p className="text-primary-500">Order Details</p>
-                <Image
-                  src="/assets/icons/arrow.svg"
-                  alt="search"
-                  width={12}
-                  height={12}
-                />
-              </Link>
-            )} */}
         </div>
       </div>
     </div>
