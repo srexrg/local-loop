@@ -1,14 +1,20 @@
-import { Separator } from "../.././../../components/ui/separator";
-import { Button } from "../.././../../components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 import { User2Icon } from "lucide-react";
-import { getEventById, getRelatedEvents } from "../../../../lib/actions/event.actions";
+import {
+  getEventById,
+  getRelatedEvents,
+} from "../../../../lib/actions/event.actions";
 import { formatDateTime } from "../../../../lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { SignedIn, SignedOut, useSession, useUser } from "@clerk/nextjs";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import RegisterAndAddToCalendar from "@/components/shared/RegisterButton";
 import EventCard from "@/components/EventCard";
 import { auth, currentUser } from "@clerk/nextjs/server";
+import Head from "next/head";
+import TwitterIcon from "@/components/shared/TwitterIcon";
+import { FaTwitter } from "react-icons/fa";
 
 type EventDetails = {
   params: { id: string };
@@ -32,9 +38,8 @@ type RegisteredEvent = {
 };
 
 export default async function EventDetails({ params: { id } }: EventDetails) {
-
-  const user =await currentUser();
-  console.log("Metadata",user?.publicMetadata.userId)
+  const user = await currentUser();
+  console.log("Metadata", user?.publicMetadata.userId);
   const userId = user?.publicMetadata.userId as string;
   console.log("Event details ", userId);
 
@@ -58,6 +63,26 @@ export default async function EventDetails({ params: { id } }: EventDetails) {
 
   return (
     <div className="bg-gray-900 text-gray-50 min-h-screen">
+      <Head>
+        <title>Local Loop </title>
+        <meta name="description" content={event.description} />
+        <meta property="og:title" content={event.title} />
+        <meta property="og:description" content={event.description} />
+        <meta property="og:image" content={event.imageUrl} />
+        <meta
+          property="og:url"
+          content={`https://local-loop.vercel.app/events/${event._id}`}
+        />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={event.title} />
+        <meta name="twitter:description" content={event.description} />
+        <meta name="twitter:image" content={event.imageUrl} />
+        <meta
+          name="twitter:url"
+          content={`https://local-loop.vercel.app/events/${event._id}`}
+        />
+      </Head>
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid gap-12 md:grid-cols-[1fr_2fr] md:gap-16">
@@ -71,8 +96,14 @@ export default async function EventDetails({ params: { id } }: EventDetails) {
               />
             </div>
             <div className="space-y-6">
-              <div className="inline-block rounded-lg bg-gray-800 px-3 py-1 text-sm">
-                {event.category}
+              <div className="flex justify-between items-center">
+                <div className="inline-block rounded-lg bg-gray-800 px-3 py-1 text-sm">
+                  {event.category}
+                </div>
+                <div className="flex items-center gap-2 rounded-md p-2 ">
+                  <FaTwitter className="w-4 h-4 mr-2" />
+                  <TwitterIcon event={event} />
+                </div>
               </div>
               <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
                 {event.title}
