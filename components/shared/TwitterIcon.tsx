@@ -2,7 +2,7 @@
 
 import React from "react";
 import { BirdIcon } from "lucide-react";
-import { TwitterShareButton } from "react-share";
+import { TwitterShareButton } from "next-share";
 import { Button } from "../ui/button";
 import { FaTwitter } from "react-icons/fa";
 type RegisteredEvent = {
