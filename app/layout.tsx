@@ -13,8 +13,16 @@ const IBMPlex = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Local-Loop",
-  description: "Local Event Management",
+  title: "Local-Loop - Local Event Management Platform",
+  description:
+    "Discover and manage local events effortlessly with Local-Loop. Join local communities and stay updated.",
+  keywords: [
+    "local events",
+    "event management",
+    "community events",
+    "event planning",
+    "local community",
+  ],
 };
 
 export default function RootLayout({

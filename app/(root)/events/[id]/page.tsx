@@ -53,6 +53,7 @@ export default async function EventDetails({ params: { id } }: EventDetails) {
     category: event.category,
   });
 
+
   const calendarEvent = {
     title: event.title,
     description: event.description,
@@ -82,6 +83,15 @@ export default async function EventDetails({ params: { id } }: EventDetails) {
           name="twitter:url"
           content={`https://local-loop.vercel.app/events/${event._id}`}
         />
+        {/* Linkedin meta */}
+        <meta property="linkedin:card" content="summary_large_image" />
+        <meta property="linkedin:title" content={event.title} />
+        <meta property="linkedin:description" content={event.description} />
+        <meta property="linkedin:image" content={event.imageUrl} />
+        <meta
+          property="linkedin:url"
+          content={`https://local-loop.vercel.app/events/${event._id}`}
+        />
       </Head>
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container mx-auto px-4 md:px-6">
@@ -101,7 +111,6 @@ export default async function EventDetails({ params: { id } }: EventDetails) {
                   {event.category}
                 </div>
                 <div className="flex items-center gap-2 rounded-md p-2 ">
-                  <FaTwitter className="w-4 h-4 mr-2" />
                   <TwitterIcon event={event} />
                 </div>
               </div>
