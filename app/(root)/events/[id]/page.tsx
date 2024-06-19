@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { User2Icon } from "lucide-react";
 import {
   getEventById,
+  getRegisteredCount,
   getRelatedEvents,
 } from "../../../../lib/actions/event.actions";
 import { formatDateTime } from "../../../../lib/utils";
@@ -44,6 +45,9 @@ export default async function EventDetails({ params: { id } }: EventDetails) {
   console.log("Event details ", userId);
 
   const event = await getEventById(id);
+
+  const count = await getRegisteredCount(id);
+  console.log(count)
 
   const isEventCreator =
     event.organizer && userId === event.organizer._id.toString();
@@ -127,6 +131,11 @@ export default async function EventDetails({ params: { id } }: EventDetails) {
                 <div className="flex flex-col">
                   <span className="font-semibold">Location:</span>
                   <span>{event.location}</span>
+                </div>
+                <Separator orientation="vertical" className="h-6" />
+                <div className="flex flex-col">
+                  <span className="font-semibold">No of registrations:</span>
+                  <span>{count}</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-400">

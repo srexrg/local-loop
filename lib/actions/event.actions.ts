@@ -192,3 +192,18 @@ export async function getRelatedEvents({ eventId, category }: GetRelatedEvents) 
     }
 
 }
+
+export async function getRegisteredCount(eventId:string){
+
+    try {
+
+        const count = await User.countDocuments({ registered: eventId})
+        console.log(`Number of registrations for event ${eventId}:`, count);
+        return count;
+    } catch (error) {
+        console.error("Error getting registration count for event:", error);
+        throw error;
+    }
+    
+
+}
