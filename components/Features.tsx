@@ -1,52 +1,79 @@
-import { BoltIcon, GlobeIcon, UsersIcon } from "lucide-react";
+"use client";
+
+import { motion } from "framer-motion";
+import { Search, Users2, Calendar, Trophy } from "lucide-react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+
+const features = [
+  {
+    icon: Search,
+    title: "Smart Discovery",
+    description:
+      "Find events that match your interests with our AI-powered recommendation engine.",
+  },
+  {
+    icon: Users2,
+    title: "Community Groups",
+    description:
+      "Connect with like-minded people and join communities.",
+  },
+  {
+    icon: Calendar,
+    title: "Easy Planning",
+    description:
+      "Seamless event scheduling and registration with automatic reminders.",
+  },
+  {
+    icon: Trophy,
+    title: "Rewards Program",
+    description:
+      "Earn points and unlock exclusive perks by attending and hosting events.",
+  },
+];
 
 export default function Features() {
   return (
-    <section className="w-full py-16 md:py-24 lg:py-32 bg-gray-900">
-      <div className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-10">
-        <h2 className="text-4xl font-bold text-center text-gray-50">
-          Our Key Features
-        </h2>
-        <p className="text-center text-gray-400 mt-4 max-w-2xl mx-auto">
-          Discover the benefits of using our platform with a focus on what
-          matters the most.
-        </p>
-        <div className="grid md:grid-cols-3 gap-12 mt-12">
-          <div className="text-center">
-            <div className="flex justify-center items-center mb-4">
-              <BoltIcon className="text-4xl text-gray-50" />
-            </div>
-            <h3 className="text-2xl font-semibold text-gray-50">
-              Fast & Reliable
-            </h3>
-            <p className="mt-4 text-gray-400">
-              Experience blazing fast performance and reliability that you can
-              count on.
-            </p>
-          </div>
-          <div className="text-center">
-            <div className="flex justify-center items-center mb-4">
-              <UsersIcon className="text-4xl text-gray-50" />
-            </div>
-            <h3 className="text-2xl font-semibold text-gray-50">
-              Community Driven
-            </h3>
-            <p className="mt-4 text-gray-400">
-              Join a vibrant community of like-minded individuals and grow
-              together.
-            </p>
-          </div>
-          <div className="text-center">
-            <div className="flex justify-center items-center mb-4">
-              <GlobeIcon className="text-4xl text-gray-50" />
-            </div>
-            <h3 className="text-2xl font-semibold text-gray-50">
-              Global Reach
-            </h3>
-            <p className="mt-4 text-gray-400">
-              Expand your network and connect with people from around the world.
-            </p>
-          </div>
+    <section className="py-24 bg-gray-900">
+      <div className="container px-4 mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl font-bold mb-4">Why Choose Us</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Discover what makes our platform the perfect place to find and
+            create meaningful events.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Card className="bg-gray-800 border-gray-700 hover:border-indigo-500 transition-colors">
+                <CardHeader>
+                  <feature.icon className="w-12 h-12 text-indigo-500 mb-4" />
+                  <CardTitle>{feature.title}</CardTitle>
+                  <CardDescription className="text-gray-400">
+                    {feature.description}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
